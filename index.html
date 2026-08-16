@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dévers du porteur</title>
+  <meta name="description" content="Calcul du désaxement du porteur en fonction du dévers de la voie">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar"><div class="logo">≋</div><div><strong>CATÉNAIRE</strong><small>OUTIL DE CALCUL TERRAIN</small></div><div class="meta">Écartement 1 435 mm · Hauteur variable</div></header>
+  <section class="hero"><div class="eyebrow">GÉOMÉTRIE DE LA VOIE</div><h1>Dévers du porteur<em>en fonction du dévers de la voie</em></h1><p>Calculez le désaxement du porteur à partir du désaxement du fil de contact, du dévers de la voie et de la hauteur réelle FC–porteur.</p></section>
+  <section class="layout">
+    <article class="card"><div class="head"><div><span class="step">01</span><h2>Calcul individuel</h2></div><span class="live">● Calcul instantané</span></div>
+      <div class="inputs">
+        <label><span>Désaxement du FC</span><div class="field"><input id="fc" type="number" value="-200"><b>mm</b></div><small>Valeur signée : gauche − / droite +</small></label>
+        <label><span>Dévers de la voie</span><div class="field"><input id="devers" type="number" value="45"><b>mm</b></div><small>Signe correspondant au sens du dévers</small></label>
+        <label><span>Hauteur FC–porteur</span><div class="field"><input id="hauteur" type="number" min="1" value="1250"><b>mm</b></div><small>Valeur habituelle 1 250 mm, modifiable</small></label>
+      </div>
+      <div class="result"><div class="label">DÉSAXEMENT DU PORTEUR</div><div class="big"><span id="resultat">−160,8</span> <span>mm</span></div><div class="round">Réglage arrondi : <strong id="arrondi">−161 mm</strong></div><div class="metrics"><div><span>Angle de la voie</span><strong id="angle">1,797°</strong></div><div><span>Correction FC → porteur</span><strong id="correction">+39,2 mm</strong></div></div></div>
+      <details class="formula"><summary>Voir la formule utilisée</summary><code>Porteur = FC + hauteur × tan(asin(dévers ÷ 1435))</code></details>
+    </article>
+    <aside class="card diagram"><div class="head"><div><span class="step">REPÈRE</span><h2>Principe</h2></div></div><div class="sketch"><div class="wire top"><b>Porteur</b></div><div class="height"><span id="height-label">1,25 m</span></div><div class="wire bottom"><b>Fil de contact</b></div><div class="rail"></div></div><p>Le dévers incline le plan de la voie. La hauteur réelle entre le FC et le porteur détermine la correction horizontale.</p></aside>
+  </section>
+  <section class="card batch"><div class="head"><div><span class="step">02</span><h2>Calcul de plusieurs poteaux</h2></div></div>
+    <div class="tools"><div class="upload"><div class="upload-icon">↑</div><div><strong>Importer un fichier Excel</strong><span>.xlsx, .xls ou .csv · calcul local dans votre navigateur</span></div><button class="btn" id="choose">Choisir le fichier</button><input id="file" type="file" accept=".xlsx,.xls,.csv" hidden></div><div class="template"><strong>Pas encore de fichier ?</strong><p>Téléchargez le modèle prêt à remplir.</p><button class="btn secondary" id="template">Télécharger le modèle Excel</button></div></div>
+    <div class="guide"><div class="guide-title">FORMAT DU FICHIER EXCEL · UNE LIGNE PAR POTEAU</div><div class="guide-grid"><div><b>A</b><span>Dévers de la voie</span><small>mm · obligatoire</small></div><div><b>B</b><span>Désaxement FC</span><small>mm · obligatoire</small></div><div><b>C</b><span>Hauteur FC–porteur</span><small>mm · vide = 1 250</small></div><div><b>D</b><span>Numéro de poteau</span><small>identification du support</small></div></div></div>
+    <div id="notice" hidden></div>
+    <div id="results" hidden><div class="toolbar"><div><strong id="count"></strong><span id="summary"></span></div><div><button class="btn secondary" id="csv">Exporter CSV</button><button class="btn" id="excel">Exporter Excel</button></div></div><div class="tablebox"><table><thead><tr><th>Numéro de poteau</th><th>Désaxement FC</th><th>Dévers voie</th><th>Hauteur FC–porteur</th><th>Angle</th><th>Correction</th><th>Désaxement porteur</th></tr></thead><tbody id="tbody"></tbody></table></div></div>
+  </section>
+  <footer>Calcul géométrique indicatif · Vérifiez toujours le sens des signes et les règles du plan d'exécution.</footer>
+  <script src="xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
